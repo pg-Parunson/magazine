@@ -33,8 +33,10 @@ public class PostController {
         modelAndView.addObject(post);
         modelAndView.setViewName("detail");
 
-        model.addAttribute("username", userDetails.getUsername());
-        model.addAttribute("nickname", userDetails.getNickName());
+        if (userDetails != null) {
+            model.addAttribute("username", userDetails.getUsername());
+            model.addAttribute("nickname", userDetails.getNickName());
+        }
 
         return modelAndView;
     }

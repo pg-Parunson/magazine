@@ -83,19 +83,6 @@
         let postNo = [[ ${postNo} ]];
         /*]]*/
 
-        // 사용자가 내용을 올바르게 입력하였는지 확인합니다.
-        function isValidContents(contents) {
-            if (contents == '') {
-                alert('댓글 내용을 입력해주세요');
-                return false;
-            }
-            if (contents.trim().length > 140) {
-                alert('공백 포함 140자 이하로 입력해주세요');
-                return false;
-            }
-            return true;
-        }
-
         // 게시글 내용 수정
         function editPost(postNo) {
             // 1. 작성자명과 작성한 글의 제목과 내용을 불러옵니다.
@@ -146,6 +133,8 @@
 
         // 좋아요 및 좋아요 취소
         function isLike(postNo) {
+            if ()
+
             $.ajax({
                 type: "GET",
                 url: `/api/posts/${postNo}/like`,
@@ -166,7 +155,7 @@
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
                         <a href="/" class="nav-link text-secondary">
-                            Hello, <span th:text="${nickname}"> ! </span>
+                            Hello! <span th:text="${nickname}"></span>
                         </a>
                     </li>
                     <li>
@@ -175,7 +164,6 @@
                             Home
                         </a>
                     </li>
-                    <th:block th:if="${session.isEmpty() == 'false'}">
                     <li>
                         <a href="/user/signup" class="nav-link text-secondary">
                             <i class="bi bi-person-circle"></i>
@@ -190,10 +178,9 @@
                             </a>
                         </form>
                     </li>
-                    </th:block>
                     <li>
                         <form action="/user/logout" method="post">
-                            <a href="/user/login" class="nav-link text-secondary">
+                            <a href="/user/logout" class="nav-link text-secondary">
                                 <i class="bi bi-box-arrow-right"></i>
                                 Log out
                             </a>
@@ -241,11 +228,14 @@
             <textarea class="form-control" id="postContents" rows="10" th:text="${post.getPostContents()}" disabled readonly></textarea>
         </div>
         <!-- 좋아요 버튼 -->
+        <th:block th:unless="${session.userNo == null}">
         <div class="row justify-content-md-center" style="margin: 25px 0 25px 0; justify-content: center;">
             <button type="button" class="btn btn-danger" th:onclick="'javascript:isLike(' + ${postNo} + ')'" style="width: 120px"><span th:text="${post.getLikes()}"></span> Likes ❤</button>
         </div>
+        </th:block>
     </div>
     <!-- 게시글 수정 버튼 -->
+    <th:block th:unless="${session.userNo == null}">
     <div class="row justify-content-md-center">
         <div class="col col-md-2">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -270,6 +260,7 @@
             </div>
         </div>
     </div>
+    </th:block>
 </div>
 <!-- Footer 코드스니펫 걍 가져다 붙이기ㅋㅋ -->
 <div class="container">

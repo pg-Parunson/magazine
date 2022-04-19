@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
@@ -39,6 +40,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 // 회원 관리 처리 API 전부를 login 없이 허용
                 .antMatchers("/user/**").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/api/posts").permitAll()
+                .antMatchers("/api/posts/{postNo}").permitAll()
                 // 그 외 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
                 .and()
@@ -56,9 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     // [로그아웃 기능]
                     .logout()
-                    // 로그아웃 처리 URL
-                    .logoutUrl("/user/logout")
-                    .logoutSuccessUrl("/user/login")
+                    // 로그아웃 처리 URL (POST가 디폴트인데 GET으로 바꿔버렸다)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout", "GET"))
+                    .logoutSuccessUrl("/")
                     .permitAll();
     }
 }
