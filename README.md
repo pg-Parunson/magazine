@@ -8,8 +8,25 @@ Springboot 사용법 숙지 및 기본적인 CRUD를 구현하기 위해 간단�
 
 ## 📄미리 보기
 ![움짤](./magazine.gif)
+   
+## 📋Skills
+**Backend**   
+* Java   
+* Spring Boot, Spring MVC, Spring Data JPA   
+* JPA   
+* Gradle   
+* IntelliJ   
+* Git
+   
+**DevOps**   
+* AWS EC2   
+* MySQL, H2   
+* Tomcat
+   
+**Frontend**   
+* HTML5, CSS3, JS, Jquery   
 
-## 🙄Session VS Token   
+## 🔒Session VS Token   
 본 프로젝트에서는 인증 및 인가 방식으로 **Session**을 채택했습니다.   
    
 그 이유로 이번에는 유저 계정을 보다 잘 관리하고 싶었고,   
