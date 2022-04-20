@@ -80,7 +80,7 @@
     </style>
     <script th:inline="javascript">
         /*<![CDATA[*/
-        let postNo = [[ ${postNo} ]];
+        let postNo = [[ ${postNo}]];
         /*]]*/
 
         // 게시글 내용 수정
@@ -133,11 +133,10 @@
 
         // 좋아요 및 좋아요 취소
         function isLike(postNo) {
-            if ()
-
             $.ajax({
                 type: "GET",
                 url: `/api/posts/${postNo}/like`,
+                contentType: 'application/json',
                 success: function (response) {
                 }
             })
@@ -149,45 +148,65 @@
 <div class="wrap">
     <div class="px-3 py-2 bg-dark text-white">
         <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"
-                   style="color: white;"><span style="font-weight: bold">PARUNSON MAGAZINE</span></a>
-                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                    <li>
-                        <a href="/" class="nav-link text-secondary">
-                            Hello! <span th:text="${nickname}"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/" class="nav-link text-secondary">
-                            <i class="bi bi-house-door"></i>
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/user/signup" class="nav-link text-secondary">
-                            <i class="bi bi-person-circle"></i>
-                            Sign up
-                        </a>
-                    </li>
-                    <li>
-                        <form action="/user/login" method="get">
-                            <a href="/user/login" class="nav-link text-secondary">
-                                <i class="bi bi-box-arrow-left"></i>
-                                Log in
+            <!-- 로그인 유저용 헤더 -->
+            <th:block th:unless="${session.userNo == null}">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/"
+                       class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"
+                       style="color: white;"><span style="font-weight: bold">PARUNSON MAGAZINE</span></a>
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                        <li>
+                            <a href="/" class="nav-link text-secondary">
+                                Hello! <span th:text="${nickname}"></span>
                             </a>
-                        </form>
-                    </li>
-                    <li>
-                        <form action="/user/logout" method="post">
-                            <a href="/user/logout" class="nav-link text-secondary">
-                                <i class="bi bi-box-arrow-right"></i>
-                                Log out
+                        </li>
+                        <li>
+                            <a href="/" class="nav-link text-secondary">
+                                <i class="bi bi-house-door"></i>
+                                Home
                             </a>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+                        </li>
+                        <li>
+                            <form action="/user/logout" method="post">
+                                <a href="/user/logout" class="nav-link text-secondary">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    Log out
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </th:block>
+            <!-- 비로그인 유저용 헤더 -->
+            <th:block th:unless="${session.userNo != null}">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/"
+                       class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"
+                       style="color: white;"><span style="font-weight: bold">PARUNSON MAGAZINE</span></a>
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                        <li>
+                            <a href="/" class="nav-link text-secondary">
+                                <i class="bi bi-house-door"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/user/signup" class="nav-link text-secondary">
+                                <i class="bi bi-person-circle"></i>
+                                Sign up
+                            </a>
+                        </li>
+                        <li>
+                            <form action="/user/login" method="get">
+                                <a href="/user/login" class="nav-link text-secondary">
+                                    <i class="bi bi-box-arrow-left"></i>
+                                    Log in
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </th:block>
         </div>
     </div>
     <div class="container">
@@ -213,53 +232,66 @@
                     <label for="postTitle" class="form-label">Title:</label>
                 </div>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="postTitle" th:value="${post.getPostTitle()}" disabled readonly>
+                    <input type="text" class="form-control" id="postTitle" th:value="${post.getPostTitle()}" disabled
+                           readonly>
                 </div>
                 <div class="col-sm-1" style="align-self: center;">
                     <label for="nickname" class="form-label">Author:</label>
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="nickname" th:value="${post.getNickname()}" disabled readonly>
+                    <input type="text" class="form-control" id="nickname" th:value="${post.getNickname()}" disabled
+                           readonly>
                 </div>
             </div>
         </div>
         <div class="mb-3">
             <label for="postContents" class="form-label">Contents:</label>
-            <textarea class="form-control" id="postContents" rows="10" th:text="${post.getPostContents()}" disabled readonly></textarea>
+            <textarea class="form-control" id="postContents" rows="10" th:text="${post.getPostContents()}" disabled
+                      readonly></textarea>
         </div>
         <!-- 좋아요 버튼 -->
         <th:block th:unless="${session.userNo == null}">
-        <div class="row justify-content-md-center" style="margin: 25px 0 25px 0; justify-content: center;">
-            <button type="button" class="btn btn-danger" th:onclick="'javascript:isLike(' + ${postNo} + ')'" style="width: 120px"><span th:text="${post.getLikes()}"></span> Likes ❤</button>
-        </div>
+            <div class="row justify-content-md-center" style="margin: 25px 0 25px 0; justify-content: center;">
+                <button type="button" class="btn btn-danger" th:onclick="'javascript:isLike(' + ${postNo} + ')'"
+                        style="width: 120px"><span th:text="${post.getLikes()}"></span> Likes ❤
+                </button>
+            </div>
+        </th:block>
+        <th:block th:unless="${session.userNo != null}">
+            <div class="row justify-content-md-center" style="margin: 25px 0 25px 0; justify-content: center;">
+                <span style="color:red; text-align: center;">A login required</span>
+                <button type="button" class="btn btn-secondary" style="width: 120px" disabled><span
+                        th:text="${post.getLikes()}"></span> Likes ❤
+                </button>
+            </div>
         </th:block>
     </div>
     <!-- 게시글 수정 버튼 -->
     <th:block th:unless="${session.userNo == null}">
-    <div class="row justify-content-md-center">
-        <div class="col col-md-2">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" id="editReadyBtn" class="btn btn-primary"
-                        style="background-color: #3e87f8; color: white; border-color: white;" onclick="btnActive()">
-                    Modify
-                </button>
+        <div class="row justify-content-md-center">
+            <div class="col col-md-2">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" id="editReadyBtn" class="btn btn-primary"
+                            style="background-color: #3e87f8; color: white; border-color: white;" onclick="btnActive()">
+                        Modify
+                    </button>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" id="editBtn" class="btn btn-primary"
+                            style="display: none; background-color: green; color: white; border-color: white;"
+                            th:onclick="'javascript:editPost('+ ${postNo} + ');'">Complete
+                    </button>
+                </div>
             </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" id="editBtn" class="btn btn-primary"
-                        style="display: none; background-color: green; color: white; border-color: white;"
-                        th:onclick="'javascript:editPost('+ ${postNo} + ');'">Complete
-                </button>
+            <div class="col col-md-2">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" id="deleteBtn" class="btn btn-primary"
+                            style="background-color: crimson; color: white; border-color: white;"
+                            th:onclick="'javascript:deletePost('+ ${postNo} + ');'">Delete
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="col col-md-2">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" id="deleteBtn" class="btn btn-primary"
-                        style="background-color: crimson; color: white; border-color: white;"
-                        th:onclick="'javascript:deletePost('+ ${postNo} + ');'">Delete
-                </button>
-            </div>
-        </div>
-    </div>
     </th:block>
 </div>
 <!-- Footer 코드스니펫 걍 가져다 붙이기ㅋㅋ -->

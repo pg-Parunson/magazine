@@ -4,10 +4,12 @@ import com.sparta.springcore.dto.UserRequestDto;
 import com.sparta.springcore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@CrossOrigin(origins = "http://3.38.106.41/")
 public class UserController {
 
     private final UserService userService;

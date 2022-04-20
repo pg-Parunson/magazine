@@ -19,22 +19,23 @@ public class IsLikeService {
 
     // 좋아요 & 좋아요 취소
     public void plusLike(Integer postNo, Integer userNo) {
+        // 해당 게시글이 유효한 게시글인지 조회
         Post post = postRepository.findById(postNo).orElseThrow(
                 () -> new NullPointerException("해당 게시글이 존재하지 않습니다.")
         );
 
+        // 좋아요 테이블에 해당 포스트 번호 & 좋아요 누른 유저로 이루어진 데이터가 없으면 (좋아요 처리)
         if (isLikeRepository.findByPostNoAndUserNo(postNo, userNo) == null) {
             // 좋아요 테이블에 해당 포스트 번호 & 좋아요 누른 유저 번호로 1행 추가
             IsLike isLike = new IsLike(postNo, userNo);
             isLikeRepository.save(isLike);
-
             // 좋아요 눌린 해당 포스트의 좋아요 컬럼에 +1
             post.setLikes(post.getLikes() + 1);
 
+        // 좋아요 테이블에 해당 포스트 번호 & 좋아요 누른 유저로 이루어진 데이터가 있으면 (좋아요 취소처리)
         } else {
             // 좋아요 테이블에 해당 포스트 번호 & 좋아요 누른 유저 번호로 생성된 행 삭제
             isLikeRepository.deleteByPostNoAndUserNo(postNo, userNo);
-
             // 좋아요 눌린 해당 포스트의 좋아요 컬럼에 -1
             post.setLikes(post.getLikes() - 1);
         }

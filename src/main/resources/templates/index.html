@@ -129,45 +129,65 @@
 <div class="wrap">
     <div class="px-3 py-2 bg-dark text-white">
         <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"
-                   style="color: white;"><span style="font-weight: bold">PARUNSON MAGAZINE</span></a>
-                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                    <li>
-                        <a href="/" class="nav-link text-secondary">
-                            Hello! <span th:text="${nickname}"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/" class="nav-link text-secondary">
-                            <i class="bi bi-house-door"></i>
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/user/signup" class="nav-link text-secondary">
-                            <i class="bi bi-person-circle"></i>
-                            Sign up
-                        </a>
-                    </li>
-                    <li>
-                        <form action="/user/login" method="get">
-                            <a href="/user/login" class="nav-link text-secondary">
-                                <i class="bi bi-box-arrow-left"></i>
-                                Log in
+            <!-- 로그인 유저용 헤더 -->
+            <th:block th:unless="${session.userNo == null}">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/"
+                       class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"
+                       style="color: white;"><span style="font-weight: bold">PARUNSON MAGAZINE</span></a>
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                        <li>
+                            <a href="/" class="nav-link text-secondary">
+                                Hello! <span th:text="${nickname}"></span>
                             </a>
-                        </form>
-                    </li>
-                    <li>
-                        <form action="/user/logout" method="post">
-                            <a href="/user/logout" class="nav-link text-secondary">
-                                <i class="bi bi-box-arrow-right"></i>
-                                Log out
+                        </li>
+                        <li>
+                            <a href="/" class="nav-link text-secondary">
+                                <i class="bi bi-house-door"></i>
+                                Home
                             </a>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+                        </li>
+                        <li>
+                            <form action="/user/logout" method="post">
+                                <a href="/user/logout" class="nav-link text-secondary">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    Log out
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </th:block>
+            <!-- 비로그인 유저용 헤더 -->
+            <th:block th:unless="${session.userNo != null}">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/"
+                       class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"
+                       style="color: white;"><span style="font-weight: bold">PARUNSON MAGAZINE</span></a>
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                        <li>
+                            <a href="/" class="nav-link text-secondary">
+                                <i class="bi bi-house-door"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/user/signup" class="nav-link text-secondary">
+                                <i class="bi bi-person-circle"></i>
+                                Sign up
+                            </a>
+                        </li>
+                        <li>
+                            <form action="/user/login" method="get">
+                                <a href="/user/login" class="nav-link text-secondary">
+                                    <i class="bi bi-box-arrow-left"></i>
+                                    Log in
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </th:block>
         </div>
     </div>
     <div class="container">
@@ -195,11 +215,11 @@
 
         <!-- 게시글 작성 버튼 -->
         <th:block th:unless="${session.userNo == null}">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="button" class="btn btn-success"
-                    data-bs-toggle="modal" data-bs-target="#newPostModal" data-bs-whatever="@mdo">New Post
-            </button>
-        </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-success"
+                        data-bs-toggle="modal" data-bs-target="#newPostModal" data-bs-whatever="@mdo">New Post
+                </button>
+            </div>
         </th:block>
         <!-- 게시글 작성 모달 -->
         <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">

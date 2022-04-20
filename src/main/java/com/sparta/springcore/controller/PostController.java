@@ -10,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://3.38.106.41/")
 public class PostController {
 
     private final PostService postService;
@@ -26,7 +28,7 @@ public class PostController {
 
     // 게시글 조회 및 상세페이지 이동
     @RequestMapping("/api/posts/{postNo}")
-    public ModelAndView getPost(@PathVariable Integer postNo, Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ModelAndView getPost(@PathVariable Integer postNo, Model model, @AuthenticationPrincipal UserDetailsImpl userDetails, HttpSession httpSession) {
         Post post = postService.getPost(postNo);
 
         ModelAndView modelAndView = new ModelAndView();
