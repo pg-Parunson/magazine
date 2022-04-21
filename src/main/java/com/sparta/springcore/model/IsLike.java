@@ -13,8 +13,8 @@ public class IsLike extends Timestamped { // 생성,수정 시간을 자동으�
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "like_no")
-    private Integer likeNo;
+    @Column(name = "like_id")
+    private Integer likeId;
 
     @Column(nullable = false, name = "post_no")
     private Integer postNo;

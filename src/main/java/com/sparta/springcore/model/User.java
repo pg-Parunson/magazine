@@ -16,7 +16,7 @@ public class User extends Timestamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "user_no")
-    private Integer id;
+    private Integer userNo;
 
     // nullable: null 허용 여부
     // unique: 중복 허용 여부 (false 일때 중복 허용)

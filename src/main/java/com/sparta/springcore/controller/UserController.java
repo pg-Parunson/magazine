@@ -20,21 +20,23 @@ public class UserController {
     }
 
     // 회원 로그인 페이지
-    @GetMapping("/user/login")
+    @GetMapping("/api/login")
     public String login() {
         return "login";
     }
 
     // 회원 가입 페이지
-    @GetMapping("/user/signup")
+    @GetMapping("/api/register")
     public String signup() {
+        System.out.println("겟");
         return "signup";
     }
 
     // 회원 가입 요청 처리
-    @PostMapping("/user/signup")
+    @PostMapping("/api/register")
     public String registerUser(UserRequestDto requestDto) {
+        System.out.println("포스트");
         userService.registerUser(requestDto);
-        return "redirect:/user/login";
+        return "login";
     }
 }

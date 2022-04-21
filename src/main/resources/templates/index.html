@@ -148,11 +148,9 @@
                             </a>
                         </li>
                         <li>
-                            <form action="/user/logout" method="post">
-                                <a href="/user/logout" class="nav-link text-secondary">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                    Log out
-                                </a>
+                            <form action="/api/logout" method="post">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <button type="submit">Log out</button>
                             </form>
                         </li>
                     </ul>
@@ -172,14 +170,14 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/user/signup" class="nav-link text-secondary">
+                            <a href="/api/register" class="nav-link text-secondary">
                                 <i class="bi bi-person-circle"></i>
                                 Sign up
                             </a>
                         </li>
                         <li>
-                            <form action="/user/login" method="get">
-                                <a href="/user/login" class="nav-link text-secondary">
+                            <form action="/api/login" method="get">
+                                <a href="/api/login" class="nav-link text-secondary">
                                     <i class="bi bi-box-arrow-left"></i>
                                     Log in
                                 </a>

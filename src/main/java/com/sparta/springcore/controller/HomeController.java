@@ -15,7 +15,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails, HttpSession httpSession) {
         if (httpSession != null && userDetails != null) {
-            httpSession.setAttribute("userNo", userDetails.getUser().getId());
+            httpSession.setAttribute("userNo", userDetails.getUser().getUserNo());
             httpSession.setAttribute("nickname", userDetails.getNickName());
             httpSession.setAttribute("username", userDetails.getUsername());
             model.addAttribute("username", userDetails.getUsername());
