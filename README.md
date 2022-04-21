@@ -9,6 +9,9 @@ Springboot 사용법 숙지 및 기본적인 CRUD를 구현하기 위해 간단�
 ## 📄미리 보기
 ![움짤](./magazine.gif)
    
+## Api설계, ERD구조설계, 변수명 합의 등 내용은 아래 링크 클릭   
+[S.A(클릭)](https://www.notion.so/5-7cec123d107d48c1880e368046f81846)
+   
 ## 📋Skills
 **Backend**   
 * Java   
