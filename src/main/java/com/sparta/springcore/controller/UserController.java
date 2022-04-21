@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@CrossOrigin(origins = "http://3.38.106.41/")
+@CrossOrigin(origins = "http://3.38.106.41:8080")
 public class UserController {
 
     private final UserService userService;
@@ -28,14 +28,12 @@ public class UserController {
     // 회원 가입 페이지
     @GetMapping("/api/register")
     public String signup() {
-        System.out.println("겟");
         return "signup";
     }
 
     // 회원 가입 요청 처리
     @PostMapping("/api/register")
     public String registerUser(UserRequestDto requestDto) {
-        System.out.println("포스트");
         userService.registerUser(requestDto);
         return "login";
     }

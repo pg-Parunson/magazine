@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://3.38.106.41/")
+@CrossOrigin(origins = "http://3.38.106.41:8080")
 public class PostController {
 
     private final PostService postService;

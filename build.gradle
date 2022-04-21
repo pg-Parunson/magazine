@@ -25,6 +25,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
+    // JUnit
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // 스프링 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-security'
