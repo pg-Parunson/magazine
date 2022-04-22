@@ -10,4 +10,5 @@ public class PostRequestDto {
     private String images;
     private Integer likes;
     private Integer views;
+    private Integer layout;
 }

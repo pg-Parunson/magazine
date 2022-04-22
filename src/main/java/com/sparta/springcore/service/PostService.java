@@ -36,6 +36,9 @@ public class PostService {
         post.setLikes(0);
         // 조회수 0 초기화
         post.setViews(0);
+        // 레이아웃 1:중앙정렬 초기화, [2: 좌, 3: 우]
+        post.setLayout(1);
+
         postRepository.save(post);
     }
 
@@ -49,8 +52,17 @@ public class PostService {
         Post post = postRepository.findById(postNo).orElseThrow(
                 () -> new NullPointerException("해당 게시글이 존재하지 않습니다.")
         );
-
+        // 게시글 수정
         post.update(requestDto);
+    }
+
+    // 게시글 레이아웃 (1: 중앙, 2: 좌, 3: 우) 설정
+    public void setLayout(Integer postNo, Integer layout) {
+        Post post = postRepository.findById(postNo).orElseThrow(
+                () -> new NullPointerException("해당 게시글이 존재하지 않습니다.")
+        );
+        // 레이아웃 변경
+        post.setLayout(layout);
     }
 
 }

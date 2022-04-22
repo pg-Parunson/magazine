@@ -62,4 +62,10 @@ public class PostController {
         return postNo;
     }
 
+    // 게시글 레이아웃 (중앙, 좌, 우) 설정
+    @PutMapping("/api/posts/{postNo}/{layout}")
+    public Integer setLayout(@PathVariable Integer postNo, @PathVariable Integer layout) {
+        postService.setLayout(postNo, layout);
+        return postNo;
+    }
 }

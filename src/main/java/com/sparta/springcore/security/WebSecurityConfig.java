@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()  // 메인 페이지 이동
                 .antMatchers("/api/posts").permitAll()  // 게시글 등록, 전체 조회
                 .antMatchers("/api/posts/{postNo}").permitAll() // 게시글 삭제, 수정, 조회
+                .antMatchers("/api/posts/{postNo}/{layout}").permitAll() // 게시글 레이아웃 설정
                 // 그 외 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
                 .and()

@@ -33,14 +33,19 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
     @Column(nullable = false, name = "views")
     private Integer views;
 
+    // 1: 중앙, 2: 좌, 3: 우
+    @Column(nullable = false, name = "layout")
+    private Integer layout;
 
-    public Post(String postTitle, String postContents, String nickname, String images, Integer likes, Integer views) {
+
+    public Post(String postTitle, String postContents, String nickname, String images, Integer likes, Integer views, Integer layout) {
         this.postTitle = postTitle;
         this.postContents = postContents;
         this.nickname = nickname;
         this.images = images;
         this.likes = likes;
         this.views = views;
+        this.layout = layout;
     }
 
     public Post(PostRequestDto requestDto) {
@@ -50,12 +55,14 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
         this.images = requestDto.getImages();
         this.likes = requestDto.getLikes();
         this.views = requestDto.getViews();
+        this.layout = requestDto.getLayout();
     }
 
     public void update(PostRequestDto requestDto) {
         this.postTitle = requestDto.getPostTitle();
         this.postContents = requestDto.getPostContents();
         this.images = requestDto.getImages();
+        this.layout = requestDto.getLayout();
     }
 
     public void setLikes(Integer likes) {
@@ -64,5 +71,9 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
 
     public void setViews(Integer views) {
         this.views = views;
+    }
+
+    public void setLayout(Integer layout) {
+        this.layout = layout;
     }
 }
