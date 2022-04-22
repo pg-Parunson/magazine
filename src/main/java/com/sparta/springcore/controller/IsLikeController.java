@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://3.38.106.41:8080")
+@CrossOrigin(origins = "*")
 public class IsLikeController {
 
     private final IsLikeService isLikeService;

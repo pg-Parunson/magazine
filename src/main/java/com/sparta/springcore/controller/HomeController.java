@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@CrossOrigin(origins = "http://3.38.106.41:8080")
+@CrossOrigin(origins = "*")
 public class HomeController {
     @GetMapping("/")
     public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails, HttpSession httpSession) {
