@@ -2,6 +2,7 @@ package com.sparta.springcore.service;
 
 import com.sparta.springcore.dto.PostRequestDto;
 import com.sparta.springcore.model.Post;
+import com.sparta.springcore.repository.CommentRepository;
 import com.sparta.springcore.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
 
     // 게시글 전체 조회
     public List<Post> readPosts() {
@@ -44,7 +46,10 @@ public class PostService {
 
     // 게시글 삭제
     public void deletePost(Integer postNo) {
+        // 게시글 삭제
         postRepository.deleteById(postNo);
+        // 해당 게시글 번호로 생성된 모든 댓글 삭제
+        commentRepository.deleteAllByPostNo(postNo);
     }
 
     // 게시글 수정

@@ -104,19 +104,6 @@
             });
         }
 
-        function setLayout(postNo, layout) {
-            const layout = ${'#layoutNo'}.val();
-
-            $.ajax({
-                type: "PUT",
-                url: `/api/posts/${postNo}/{layout}`,
-                contentType: "application/json",
-                success: function (response) {
-                    window.location.reload();
-                }
-            })
-        }
-
         function btnActive() {
             const editReadyBtn = document.getElementById('editReadyBtn');
             editReadyBtn.style.display = "none";
@@ -146,6 +133,7 @@
 
         // 좋아요 및 좋아요 취소
         function isLike(postNo) {
+            alert(postNo)
             $.ajax({
                 type: "GET",
                 url: `/api/posts/${postNo}/like`,

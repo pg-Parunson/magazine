@@ -62,7 +62,6 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
         this.postTitle = requestDto.getPostTitle();
         this.postContents = requestDto.getPostContents();
         this.images = requestDto.getImages();
-        this.layout = requestDto.getLayout();
     }
 
     public void setLikes(Integer likes) {
