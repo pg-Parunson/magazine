@@ -3,6 +3,7 @@ package com.sparta.springcore.service;
 import com.sparta.springcore.dto.UserRequestDto;
 import com.sparta.springcore.model.User;
 import com.sparta.springcore.repository.UserRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

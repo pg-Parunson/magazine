@@ -34,7 +34,7 @@ public class UserController {
 
     // 회원 가입 요청 처리
     @PostMapping("/api/register")
-    public String registerUser(UserRequestDto requestDto) {
+    public String registerUser(@RequestBody UserRequestDto requestDto) {
         userService.registerUser(requestDto);
         return "login";
     }

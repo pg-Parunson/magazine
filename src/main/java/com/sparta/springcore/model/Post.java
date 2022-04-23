@@ -24,7 +24,7 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
     @Column(nullable = false, name = "nickname")
     private String nickname;
 
-    @Column(name = "images")
+    @Column(name = "images", length = 10000)
     private String images;
 
     @Column(nullable = false, name = "likes")
