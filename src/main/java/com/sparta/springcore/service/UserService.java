@@ -1,10 +1,11 @@
 package com.sparta.springcore.service;
 
+import com.sparta.springcore.advice.RestException;
 import com.sparta.springcore.dto.UserRequestDto;
 import com.sparta.springcore.model.User;
 import com.sparta.springcore.repository.UserRepository;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +25,14 @@ public class UserService {
         String username = requestDto.getUsername();
         boolean usernameDuplicate = userRepository.existsByUsername(username);
         if (usernameDuplicate) {
-            throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
+            throw new RestException(HttpStatus.BAD_REQUEST, "fail", "사용중인 ID");
         }
         
         // 닉네임 중복 확인
         String nickname = requestDto.getNickname();
         boolean nicknameDuplicate = userRepository.existsByNickname(nickname);
         if (nicknameDuplicate) {
-            throw new IllegalArgumentException("이미 존재하는 닉네임입니다.");
+            throw new RestException(HttpStatus.BAD_REQUEST, "fail", "사용중인 닉네임");
         }
 
         // 패스워드 암호화
@@ -41,7 +42,7 @@ public class UserService {
         String email = requestDto.getEmail();
         boolean emailDuplicate = userRepository.existsByEmail(email);
         if (emailDuplicate) {
-            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+            throw new RestException(HttpStatus.BAD_REQUEST, "fail", "사용중인 이메일");
         }
 
         User user = new User(username, nickname, password, email);

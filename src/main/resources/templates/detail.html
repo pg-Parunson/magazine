@@ -133,12 +133,12 @@
 
         // 좋아요 및 좋아요 취소
         function isLike(postNo) {
-            alert(postNo)
             $.ajax({
                 type: "GET",
                 url: `/api/posts/${postNo}/like`,
                 contentType: 'application/json',
                 success: function (response) {
+                    window.location.reload()
                 }
             })
         }

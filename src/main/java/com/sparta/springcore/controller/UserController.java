@@ -1,13 +1,19 @@
 package com.sparta.springcore.controller;
 
 import com.sparta.springcore.dto.UserRequestDto;
+import com.sparta.springcore.model.ResponseResult;
 import com.sparta.springcore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
 
 @Controller
 @CrossOrigin(origins = "*")
@@ -34,8 +40,11 @@ public class UserController {
 
     // 회원 가입 요청 처리
     @PostMapping("/api/register")
-    public String registerUser(@RequestBody UserRequestDto requestDto) {
+    public ResponseEntity<ResponseResult> registerUser(@RequestBody @Valid UserRequestDto requestDto, Errors errors) {
+        if (errors.hasErrors()) {
+            return new ResponseEntity<>(new ResponseResult("fail", "회원가입 실패"), HttpStatus.OK);
+        }
         userService.registerUser(requestDto);
-        return "login";
+        return new ResponseEntity<>(new ResponseResult("success", "회원가입 성공"), HttpStatus.OK);
     }
 }

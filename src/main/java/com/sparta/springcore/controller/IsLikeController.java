@@ -1,7 +1,10 @@
 package com.sparta.springcore.controller;
 
+import com.sparta.springcore.model.ResponseResult;
 import com.sparta.springcore.service.IsLikeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +21,10 @@ public class IsLikeController {
 
     // 좋아요 처리
     @GetMapping("/api/posts/{postNo}/like")
-    public void plusLike(@PathVariable Integer postNo, HttpSession httpSession) {
+    public ResponseEntity<ResponseResult> plusLike(@PathVariable Integer postNo, HttpSession httpSession) {
         Integer userNo = (Integer) httpSession.getAttribute("userNo");
         isLikeService.plusLike(postNo, userNo);
+        return new ResponseEntity<>(new ResponseResult("success", null), HttpStatus.OK);
     }
 }
 
