@@ -24,11 +24,11 @@ public class PostService {
     }
 
     // 특정 게시글 조회
-    public Post getPost(Integer postNo) {
+    public PostRequestDto getPost(Integer postNo) {
         Post post = postRepository.getById(postNo);
         // 조회수 1 증가
         post.setViews(post.getViews() + 1);
-        return post;
+        return new PostRequestDto(post);
     }
 
     // 새 게시글 등록
@@ -38,8 +38,6 @@ public class PostService {
         post.setLikes(0);
         // 조회수 0 초기화
         post.setViews(0);
-        // 레이아웃 1:중앙정렬 초기화, [2: 좌, 3: 우]
-        post.setLayout(1);
 
         postRepository.save(post);
     }

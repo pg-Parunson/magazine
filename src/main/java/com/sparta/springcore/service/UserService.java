@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     private final PasswordEncoder passwordEncoder;
@@ -20,6 +22,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // 회원 가입 처리
     public void registerUser(UserRequestDto requestDto) {
         // 회원 ID 중복 확인
         String username = requestDto.getUsername();
@@ -27,7 +30,7 @@ public class UserService {
         if (usernameDuplicate) {
             throw new RestException(HttpStatus.BAD_REQUEST, "fail", "사용중인 ID");
         }
-        
+
         // 닉네임 중복 확인
         String nickname = requestDto.getNickname();
         boolean nicknameDuplicate = userRepository.existsByNickname(nickname);
@@ -47,5 +50,19 @@ public class UserService {
 
         User user = new User(username, nickname, password, email);
         userRepository.save(user);
+    }
+
+    // 로그인 처리
+    public User login(String username, String password) {
+        Optional<User> findUserOptional = userRepository.findByUsername(username);
+        User user = findUserOptional.get();
+        // 암호화 하지 않은 비번과 암호화한 비번이 일치하는지 비교
+        // 일치하면 유저 객체 넘겨주기
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        // 일치하지 않으면 null 반환
+        } else {
+            return null;
+        }
     }
 }

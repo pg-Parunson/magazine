@@ -22,6 +22,9 @@ public class IsLikeController {
     // 좋아요 처리
     @GetMapping("/api/posts/{postNo}/like")
     public ResponseEntity<ResponseResult> plusLike(@PathVariable Integer postNo, HttpSession httpSession) {
+        if (httpSession == null) {
+            return new ResponseEntity<>(new ResponseResult("fail", null), HttpStatus.BAD_REQUEST);
+        }
         Integer userNo = (Integer) httpSession.getAttribute("userNo");
         isLikeService.plusLike(postNo, userNo);
         return new ResponseEntity<>(new ResponseResult("success", null), HttpStatus.OK);

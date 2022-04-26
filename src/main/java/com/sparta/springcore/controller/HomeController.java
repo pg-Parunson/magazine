@@ -1,26 +1,24 @@
 package com.sparta.springcore.controller;
 
-import com.sparta.springcore.security.UserDetailsImpl;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import com.sparta.springcore.login.SessionConst;
+import com.sparta.springcore.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
-@CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class HomeController {
+
     @GetMapping("/")
-    public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails, HttpSession httpSession) {
-        if (httpSession != null && userDetails != null) {
-            httpSession.setAttribute("userNo", userDetails.getUser().getUserNo());
-            httpSession.setAttribute("nickname", userDetails.getNickName());
-            httpSession.setAttribute("username", userDetails.getUsername());
-            model.addAttribute("username", userDetails.getUsername());
-            model.addAttribute("nickname", userDetails.getNickName());
+    public String home(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) User loginMember, Model model) {
+        // 세션에 회원 데이터가 없으면 home
+        if (loginMember == null) {
+            return "index";
         }
+        model.addAttribute("user", loginMember);
         return "index";
     }
 }
