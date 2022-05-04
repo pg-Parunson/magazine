@@ -32,10 +32,31 @@ public class User extends Timestamped {
     @Column(nullable = false, unique = true)
     private String email;
 
+    // null 쌉가능 (일반 폼 가입 유저 위함)
+    // 중복 허용 안함
+    @Column(unique = true)
+    private Long kakaoId;
+
+    @Column
+    private String profile_image;
+
+    // 일반 유저를 위한 생성자
     public User(String username, String nickname, String password, String email) {
         this.username = username;
         this.nickname = nickname;
         this.password = password;
         this.email = email;
+        this.kakaoId = null;
+        this.profile_image = null;
+    }
+
+    // 카카오 회원가입한 사람을 위한 생성자
+    public User(String nickname, String password, String email, Long kakaoId, String profile_image) {
+        this.username = nickname;
+        this.nickname = nickname;
+        this.password = password;
+        this.email = email;
+        this.kakaoId = kakaoId;
+        this.profile_image = profile_image;
     }
 }

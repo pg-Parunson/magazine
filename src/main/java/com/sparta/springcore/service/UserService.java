@@ -60,7 +60,7 @@ public class UserService {
         // 일치하면 유저 객체 넘겨주기
         if (passwordEncoder.matches(password, user.getPassword())) {
             return user;
-        // 일치하지 않으면 null 반환
+            // 일치하지 않으면 null 반환
         } else {
             return null;
         }

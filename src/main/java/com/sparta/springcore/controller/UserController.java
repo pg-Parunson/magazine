@@ -1,10 +1,12 @@
 package com.sparta.springcore.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sparta.springcore.dto.UserRequestDto;
 import com.sparta.springcore.login.LoginForm;
 import com.sparta.springcore.login.SessionConst;
 import com.sparta.springcore.model.ResponseResult;
 import com.sparta.springcore.model.User;
+import com.sparta.springcore.service.KakaoUserService;
 import com.sparta.springcore.service.UserService;
 import com.sparta.springcore.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +28,27 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+    private final KakaoUserService kakaoUserService;
     private final SessionManager sessionManager;
 
     @Autowired
-    public UserController(UserService userService, SessionManager sessionManager) {
+    public UserController(UserService userService, SessionManager sessionManager, KakaoUserService kakaoUserService) {
         this.userService = userService;
         this.sessionManager = sessionManager;
+        this.kakaoUserService = kakaoUserService;
     }
 
     // 회원 로그인 페이지
     @GetMapping("/api/login")
     public String loginForm() {
         return "login";
+    }
+
+    // 카카오 로그인
+    @GetMapping("/user/kakao/callback")
+    public String kakaoLogin(@RequestParam String code) throws JsonProcessingException { // RequestParam 생략 가능
+        kakaoUserService.kakaoLogin(code);
+        return "redirect:/";
     }
 
     // 로그인

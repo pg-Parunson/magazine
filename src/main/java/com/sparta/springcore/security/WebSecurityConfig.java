@@ -53,7 +53,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/posts/{postNo}").permitAll() // 게시글 삭제, 수정, 조회
                     .antMatchers("/api/posts/{postNo}/{layout}").permitAll() // 게시글 레이아웃 설정
                     .antMatchers("/api/login").permitAll() // 로그인
+                    .antMatchers("/user/kakao/callback").permitAll() // 로그인
                     .antMatchers("/api/logout").permitAll() // 로그아웃
+                    .antMatchers("/api/posts/{postNo}/like/{username}").permitAll() // 좋아요
                 // 그 외 어떤 요청이든 '인증 필요'
                 .anyRequest().authenticated()
                 .and()

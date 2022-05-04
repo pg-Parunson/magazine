@@ -19,14 +19,21 @@ public class IsLikeController {
 
     private final IsLikeService isLikeService;
 
+//    // 좋아요 처리
+//    @GetMapping("/api/posts/{postNo}/like")
+//    public ResponseEntity<ResponseResult> plusLike(@PathVariable Integer postNo, HttpSession httpSession) {
+//        if (httpSession == null) {
+//            return new ResponseEntity<>(new ResponseResult("fail", null), HttpStatus.BAD_REQUEST);
+//        }
+//        Integer userNo = (Integer) httpSession.getAttribute("userNo");
+//        isLikeService.plusLike(postNo, userNo);
+//        return new ResponseEntity<>(new ResponseResult("success", null), HttpStatus.OK);
+//    }
+
     // 좋아요 처리
-    @GetMapping("/api/posts/{postNo}/like")
-    public ResponseEntity<ResponseResult> plusLike(@PathVariable Integer postNo, HttpSession httpSession) {
-        if (httpSession == null) {
-            return new ResponseEntity<>(new ResponseResult("fail", null), HttpStatus.BAD_REQUEST);
-        }
-        Integer userNo = (Integer) httpSession.getAttribute("userNo");
-        isLikeService.plusLike(postNo, userNo);
+    @GetMapping("/api/posts/{postNo}/like/{username}")
+    public ResponseEntity<ResponseResult> plusLike(@PathVariable Integer postNo, @PathVariable String username) {
+        isLikeService.plusLike(postNo, username);
         return new ResponseEntity<>(new ResponseResult("success", null), HttpStatus.OK);
     }
 }
