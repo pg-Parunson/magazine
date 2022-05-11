@@ -123,6 +123,28 @@
                 }
             })
         }
+
+        // 새 버킷 작성
+        function writeBucket() {
+            // 1. 작성자명과 작성한 글의 제목과 내용을 불러옵니다.
+            let title = $('#bucketTitle').val();
+            let position = $('#bucketPosition').val();
+            position *= 1;
+
+            // 2. 전달할 data JSON으로 만듭니다.
+            let data = {'pjId': 'test', 'title': title, 'position': position};
+
+            // 3. POST /api/posts 에 data를 전달합니다.
+            $.ajax({
+                type: "POST",
+                url: "/api/buckets/",
+                contentType: "application/json", // JSON 형식으로 전달함을 알리기
+                data: JSON.stringify(data),
+                success: function (response) {
+                    window.location.replace('/');
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -247,6 +269,41 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-success" onclick="writePost()">Add new post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 버킷 작성 버튼 -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-success"
+                    data-bs-toggle="modal" data-bs-target="#newBucketModal" data-bs-whatever="@mdo">버킷 만들기
+            </button>
+        </div>
+        <!-- 게시글 작성 모달 -->
+        <div class="modal fade" id="newBucketModal" tabindex="-1" aria-labelledby="newBucketModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newBucketModalLabel"><span style="font-weight: bold">버킷 추가</span>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="bucketTitle" class="col-form-label">버킷 제목 :</label>
+                                <input type="text" class="form-control" id="bucketTitle">
+                            </div>
+                            <div class="mb-3">
+                                <label for="bucketPosition" class="col-form-label">버킷 포지션 :</label>
+                                <input type="text" class="form-control" id="bucketPosition">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" onclick="writeBucket()">버킷 생성</button>
                     </div>
                 </div>
             </div>

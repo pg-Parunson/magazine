@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -56,6 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/user/kakao/callback").permitAll() // 로그인
                     .antMatchers("/api/logout").permitAll() // 로그아웃
                     .antMatchers("/api/posts/{postNo}/like/{username}").permitAll() // 좋아요
+                    .antMatchers("/api/buckets/").permitAll() // 좋아요
                 // 그 외 어떤 요청이든 '인증 필요'
                 .anyRequest().authenticated()
                 .and()
